@@ -80,6 +80,39 @@ MoneyRails.configure do |config|
     smallest_denomination:  1
   }
 
+  config.register_currency = {
+    priority:               1,
+    iso_code:               "ASH",
+    name:                   "Ashdod Coin",
+    symbol:                 "⚒",
+    alternate_symbols:      ["руб.", "р."],
+    subunit:                "ashdodon",
+    subunit_to_unit:        100,
+    symbol_first:           false,
+    html_entity:            "&#8711;",
+    decimal_mark:           ",",
+    thousands_separator:    ".",
+    iso_numeric:            "643",
+    smallest_denomination:  1,
+    community_coin:         true
+  }
+
+  config.register_currency = {
+    priority:               1,
+    iso_code:               "FLO",
+    name:                   "Florentin Coin",
+    symbol:                 "⚥",
+    alternate_symbols:      ["руб.", "р."],
+    subunit:                "sheinkin",
+    subunit_to_unit:        100,
+    symbol_first:           false,
+    html_entity:            "&#8711;",
+    decimal_mark:           ",",
+    thousands_separator:    ".",
+    iso_numeric:            "643",
+    smallest_denomination:  1,
+    community_coin:         true
+  }
 
   # Register a custom currency
   #
