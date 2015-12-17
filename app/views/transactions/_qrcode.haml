@@ -1,4 +1,6 @@
 .initiate-transaction-totals
 	.initiate-transaction-total-wrapper
 		%span.initiate-transaction-total-label
+			= 'Pay with Community Coin:'
+		%span.initiate-transaction-total-value
 			= render 'qr', qr: generate_qr(author_person.phone_number)

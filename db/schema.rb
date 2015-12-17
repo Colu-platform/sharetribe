@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151209102951) do
+ActiveRecord::Schema.define(:version => 20151217110239) do
 
   create_table "auth_tokens", :force => true do |t|
     t.string   "token"
@@ -873,6 +873,7 @@ ActiveRecord::Schema.define(:version => 20151209102951) do
     t.boolean  "is_organization"
     t.string   "organization_name"
     t.boolean  "deleted",                                          :default => false
+    t.string   "community_coin_address"
   end
 
   add_index "people", ["authentication_token"], :name => "index_people_on_authentication_token"

@@ -40,6 +40,7 @@
 #  is_organization                    :boolean
 #  organization_name                  :string(255)
 #  deleted                            :boolean          default(FALSE)
+#  community_coin_address             :string(255)
 #
 # Indexes
 #

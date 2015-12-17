@@ -219,6 +219,7 @@ class PeopleController < Devise::RegistrationsController
         :email_attributes,
         :min_days_between_community_updates,
         :preferences,
+        :community_coin_address
       )
 
       if @person.update_attributes(person_params)
