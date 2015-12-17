@@ -25,7 +25,7 @@
         %li
           = render partial: "transactions/price_break_down", locals: price_break_down
         %li
-          = render partial: "transactions/qrcode", locals: {author_person: author_person}
+          = render partial: "transactions/qrcode", locals: {author_person: author_person, price_break_down: price_break_down}
 
   = form_tag(form_action, method: :post, id: "transaction-form") do
 

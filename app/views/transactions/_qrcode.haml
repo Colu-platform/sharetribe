@@ -1,6 +1,6 @@
 .initiate-transaction-totals
 	.initiate-transaction-total-wrapper
 		%span.initiate-transaction-total-label
-			= 'Pay with Community Coin:'
+			= 'Pay with Community Coin: ['+price_break_down[:total].currency.iso_code+']'
 		%span.initiate-transaction-total-value
-			= render 'qr', qr: generate_qr('bitcoin:'+author_person.community_coin_address)
+			= render 'qr', qr: generate_qr('bitcoin:'+author_person.community_coin_address+'?amount='+price_break_down[:total].fractional.to_s)
