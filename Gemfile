@@ -17,7 +17,7 @@ end
 
 gem 'sass-rails'
 gem 'compass-rails'
-
+gem 'rqrcode-rails3'
 # Requiring 'compass' gem directly is not normally needed,
 # 'compass-rails' already does that.
 #

@@ -10,6 +10,7 @@
 #new_message_form.centered-section
 
   - author_link = link_to(author[:display_name], person_path(id: author[:username]))
+  - author_person = Person.find_by_username(author[:username])
 
   .preauthorize-section
     %h2.preauthorize-details-title
@@ -23,6 +24,8 @@
       - m_price_break_down.each do |price_break_down|
         %li
           = render partial: "transactions/price_break_down", locals: price_break_down
+        %li
+          = render partial: "transactions/qrcode", locals: {author_person: author_person}
 
   = form_tag(form_action, method: :post, id: "transaction-form") do
 

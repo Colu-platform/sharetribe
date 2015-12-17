@@ -514,6 +514,10 @@ GEM
     rest-client (1.6.7)
       mime-types (>= 1.16)
     riddle (1.5.11)
+    rqrcode (0.7.0)
+      chunky_png
+    rqrcode-rails3 (0.1.7)
+      rqrcode (>= 0.4.2)
     rspec (2.99.0)
       rspec-core (~> 2.99.0)
       rspec-expectations (~> 2.99.0)
@@ -694,6 +698,7 @@ DEPENDENCIES
   rb-fsevent
   recaptcha
   rest-client (>= 1.6.0)
+  rqrcode-rails3
   rspec-rails (~> 2.99.0)
   rubocop
   ruby-prof
@@ -716,4 +721,4 @@ DEPENDENCIES
   zeus (= 0.15.1)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
