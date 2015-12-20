@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   # why we need to call the before filter below.
   before_filter :allow_params_authentication!, :only => :create
 
-  def new
+  def new    
     @selected_tribe_navi_tab = "members"
     @facebook_merge = session["devise.facebook_data"].present?
     if @facebook_merge
@@ -34,8 +34,7 @@ class SessionsController < ApplicationController
     # in case something goes bad.
     person = authenticate_person!(:recall => "sessions#new")
     flash[:error] = nil
-    @current_user = person
-
+    @current_user = person    
     # Store Facebook ID and picture if connecting with FB
     if session["devise.facebook_data"]
       @current_user.update_attribute(:facebook_id, session["devise.facebook_data"]["id"])

@@ -1,2 +1,2 @@
 = form.label :description, t('.detailed_description'), :class => "input"
-= form.text_area(:description, :maxlength => "5000", :class => "listing_description_textarea")
+= form.text_area(:description, :maxlength => "5000", :class => "listing_description_textarea", value: Faker::Lorem.sentence)

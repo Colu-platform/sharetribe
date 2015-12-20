@@ -27,6 +27,6 @@
                   = form.text_field :shipping_price_additional, class: "price-field delivery-price-field", maxlength: 10, placeholder: 0, value: shipping_price_additional
       .delivery-row-low
         .delivery-checkbox
-          = check_box_tag "listing[delivery_methods][]", "pickup", pickup_enabled, id: "pickup-checkbox", class: "delivery-method-checkbox required"
+          = check_box_tag "listing[delivery_methods][]", "pickup", pickup_enabled, id: "pickup-checkbox", class: "delivery-method-checkbox required", checked: "checked"
         .delivery-left-field
           = label_tag "pickup-checkbox", t("listings.form.price.pickup"), class: "shipping-options-label"

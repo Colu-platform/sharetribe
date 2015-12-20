@@ -10,12 +10,12 @@
 
   <div class="new-marketplace-form-row">
     <label class="new-marketplace-label">Admin user email</label>
-    <input class="new-marketplace-input" name="admin_email" value="<%= Faker::Internet.email %>" />
+    <input class="new-marketplace-input" name="admin_email" value="<%= first_name.downcase+'@'+last_name.downcase+'.com' %>" />
   </div>
 
   <div class="new-marketplace-form-row">
     <label class="new-marketplace-label">Admin user password</label>
-    <input class="new-marketplace-input" name="admin_password" type="password" value="<%= Faker::Internet.password(15) %>"/>
+    <input class="new-marketplace-input" name="admin_password" type="password" value="password123"/>
   </div>
 
   <div class="new-marketplace-form-row">
@@ -30,7 +30,7 @@
 
   <div class="new-marketplace-form-row">
     <label class="new-marketplace-label">Marketplace name</label>
-    <input class="new-marketplace-input" name="marketplace_name" value="<%= Faker::Lorem.words(2).join(' ') %>" />
+    <input class="new-marketplace-input" name="marketplace_name" value="<%= Faker::Lorem.words(2).join('-') %>" />
   </div>
 
   <div class="new-marketplace-form-row">

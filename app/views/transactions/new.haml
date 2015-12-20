@@ -24,8 +24,9 @@
       - m_price_break_down.each do |price_break_down|
         %li
           = render partial: "transactions/price_break_down", locals: price_break_down
-        %li
-          = render partial: "transactions/qrcode", locals: {author_person: author_person, price_break_down: price_break_down}
+        - if author_person.community_coin_address
+          %li
+            = render partial: "transactions/qrcode", locals: {address: author_person.community_coin_address, price_break_down: price_break_down}
 
   = form_tag(form_action, method: :post, id: "transaction-form") do
 
