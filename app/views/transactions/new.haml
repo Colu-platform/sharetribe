@@ -1,7 +1,6 @@
 - content_for :extra_javascript do
   :javascript
     ST.transaction.initializeFreeTransactionForm('#{I18n.locale}');
-
 - content_for :title_header do
   %h1
     = action_button_label
@@ -27,6 +26,9 @@
         - if author_person.community_coin_address
           %li
             = render partial: "transactions/qrcode", locals: {address: author_person.community_coin_address, price_break_down: price_break_down}
+          - content_for :extra_javascript do
+            :javascript
+              ST.transaction.waitForPrice("#{author_person.community_coin_address}");            
 
   = form_tag(form_action, method: :post, id: "transaction-form") do
 

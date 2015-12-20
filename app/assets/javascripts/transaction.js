@@ -90,6 +90,23 @@ window.ST.transaction = window.ST.transaction || {};
       }
     ).onValue(function () { window.location = redirectUrl; });
   }
+  function waitForPrice(address) {      
+      var checkBalanceUrl = 'http://testnet.api.coloredcoins.org/v3/addressinfo/'+address;
+      var req = $.ajax({
+          type: "GET", url: checkBalanceUrl,
+          crossDomain: true,
+          xhrFields: {
+              withCredentials: false
+          },
+          timeout: 10000,
+          success: function (response) {
+            console.log(JSON.stringify(response));
+          },
+          error: function (ajaxContext,response) {
+            alert('error'+response);
+          }
+      });
+  }  
 
   function initializeFreeTransactionForm(locale) {
     window.auto_resize_text_areas("text_area");
@@ -109,5 +126,5 @@ window.ST.transaction = window.ST.transaction || {};
   module.initializePayPalBuyForm = initializePayPalBuyForm;
   module.initializeCreatePaymentPoller = initializeCreatePaymentPoller;
   module.initializeFreeTransactionForm = initializeFreeTransactionForm;
-
+  module.waitForPrice = waitForPrice;
 })(window.ST.transaction, _);
