@@ -26,7 +26,7 @@ module Form
 
   NewMarketplace = FormUtils.define_form("NewMarketplaceForm",
     :admin_email, :admin_first_name, :admin_last_name, :admin_password,
-    :marketplace_country, :marketplace_language, :marketplace_name, :marketplace_type
+    :marketplace_country, :marketplace_language, :marketplace_name, :marketplace_type, :marketplace_currency
   ).with_validations do
     validates_presence_of :admin_email, :admin_first_name, :admin_last_name, :admin_password
     validates_format_of   :admin_email, with: /\A[A-Z0-9._%\-\+\~\/]+@([A-Z0-9-]+\.)+[A-Z]+\z/i

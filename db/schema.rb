@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151217110239) do
+ActiveRecord::Schema.define(:version => 20151220091904) do
 
   create_table "auth_tokens", :force => true do |t|
     t.string   "token"
@@ -215,6 +215,7 @@ ActiveRecord::Schema.define(:version => 20151217110239) do
     t.string   "dv_test_file_name",                          :limit => 64
     t.string   "dv_test_file",                               :limit => 64
     t.boolean  "deleted"
+    t.string   "currency"
   end
 
   add_index "communities", ["domain"], :name => "index_communities_on_domain"

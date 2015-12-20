@@ -20,7 +20,7 @@ class IntApi::MarketplacesController < ApplicationController
       params.slice(:marketplace_name,
                    :marketplace_type,
                    :marketplace_country,
-                   :marketplace_language)
+                   :marketplace_language,:marketplace_currency)
             .merge(payment_process: :preauthorize)
     )
 

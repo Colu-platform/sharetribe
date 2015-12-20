@@ -59,12 +59,16 @@ module ListingsHelper
     }
   end
 
-  def major_currencies(hash)
+  def extract_currency_iso_code(hash)
     hash.inject([]) do |array, (id, attributes)|
       array ||= []
       array << [attributes[:iso_code]]
       array.sort
     end.compact.flatten
+  end
+
+  def community_currencies(hash)
+    hash.select{|e,v| v[:community_coin]==true} 
   end
 
   def price_as_text(listing)

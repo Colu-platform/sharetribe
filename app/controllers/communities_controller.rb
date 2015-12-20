@@ -2,7 +2,7 @@ class CommunitiesController < ApplicationController
   skip_filter :fetch_community,
               :cannot_access_without_joining
 
-  before_filter :ensure_no_communities
+  # before_filter :ensure_no_communities
 
   layout 'blank_layout'
 
@@ -21,7 +21,8 @@ class CommunitiesController < ApplicationController
         form_hash.slice(:marketplace_name,
                         :marketplace_type,
                         :marketplace_country,
-                        :marketplace_language)
+                        :marketplace_language,
+                        :marketplace_currency)
         .merge(payment_process: :none)
       )
 
