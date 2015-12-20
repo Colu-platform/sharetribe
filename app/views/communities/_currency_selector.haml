@@ -1,0 +1,1 @@
+= select_tag :community_currency, options_for_select(extract_currency_iso_code(community_currencies(Money::Currency.table))),class: "new-marketplace-select", name: "marketplace_currency"

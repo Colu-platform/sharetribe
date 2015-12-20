@@ -1,5 +1,7 @@
 <h2>Set up your marketplace</h2>
-
+<% first_name = Faker::Name.first_name %>
+<% last_name = Faker::Name.last_name %>
+<% name = first_name +' '+last_name %>
 <% if errors.present? %>
 <p class="new-marketplace-errors"><%= errors.join('<br />').html_safe %></p>
 <% end %>
@@ -8,27 +10,27 @@
 
   <div class="new-marketplace-form-row">
     <label class="new-marketplace-label">Admin user email</label>
-    <input class="new-marketplace-input" name="admin_email"/>
+    <input class="new-marketplace-input" name="admin_email" value="<%= Faker::Internet.email %>" />
   </div>
 
   <div class="new-marketplace-form-row">
     <label class="new-marketplace-label">Admin user password</label>
-    <input class="new-marketplace-input" name="admin_password" type="password"/>
+    <input class="new-marketplace-input" name="admin_password" type="password" value="<%= Faker::Internet.password(15) %>"/>
   </div>
 
   <div class="new-marketplace-form-row">
     <label class="new-marketplace-label">Admin user first name</label>
-    <input class="new-marketplace-input" name="admin_first_name" value="Assaf"/>
+    <input class="new-marketplace-input" name="admin_first_name" value="<%= first_name %>" />
   </div>
 
   <div class="new-marketplace-form-row">
     <label class="new-marketplace-label">Admin user last name</label>
-    <input class="new-marketplace-input" name="admin_last_name" value="Colu"/>
+    <input class="new-marketplace-input" name="admin_last_name" value="<%= last_name %>" />
   </div>
 
   <div class="new-marketplace-form-row">
     <label class="new-marketplace-label">Marketplace name</label>
-    <input class="new-marketplace-input" name="marketplace_name" value="Colu Market"/>
+    <input class="new-marketplace-input" name="marketplace_name" value="<%= Faker::Lorem.words(2).join(' ') %>" />
   </div>
 
   <div class="new-marketplace-form-row">
@@ -332,11 +334,14 @@
 
   <div class="new-marketplace-form-row">
     <label class="new-marketplace-label">Marketplace Currency</label>
-    <select class="new-marketplace-select" name="marketplace_currency">
+<!--     <select class="new-marketplace-select" name="marketplace_currency">
       <option value="ash" selected>Ashdod Coin</option>
       <option value="flo">Florentine Coin</option>
-    </select>
+    </select> -->
+  <%= render 'currency_selector' %>    
   </div>
+
+
 
   <div class="new-marketplace-form-row">
     <input class="new-marketplace-submit" type="submit" value="Save">
