@@ -1,5 +1,6 @@
 .currency-selector
   - if @current_community.currency
-  - currency_isocode = @current_community.currency.downcase  
-  = Money.new(1, currency_isocode).symbol
+  - currency_isocode = @current_community.currency.downcase
+  - cur = Money.new(1, currency_isocode)  
+  = cur.symbol + ' ('+cur.currency.name+')'
     = form.hidden_field :currency, :value => currency_isocode

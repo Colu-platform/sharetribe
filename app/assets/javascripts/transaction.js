@@ -100,7 +100,8 @@ window.ST.transaction = window.ST.transaction || {};
           },
           timeout: 10000,
           success: function (response) {
-            console.log(JSON.stringify(response));
+            result = response['utxos'].map(function(u){return u['assets']});
+            console.log(JSON.stringify(result));
           },
           error: function (ajaxContext,response) {
             alert('error'+response);

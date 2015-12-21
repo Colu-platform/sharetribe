@@ -67,7 +67,7 @@ module MarketplaceService::API
       locale = p[:marketplace_language].or_else("en")
       marketplace_name = p[:marketplace_name].or_else("Trial Marketplace")
       payment_process = p[:payment_process].or_else(:preauthorize)
-      currency = p[:marketplace_currency]
+      currency = p[:marketplace_currency].split(' ').first
 
       community = CommunityModel.create(Helper.community_params(p, marketplace_name, locale))
 
@@ -123,7 +123,7 @@ module MarketplaceService::API
           settings: {"locales" => [locale]},
           available_currencies: available_currencies_based_on(params[:marketplace_country].or_else("us")),
           country: params[:marketplace_country].upcase.or_else(nil),
-          currency: params[:marketplace_currency].upcase.or_else(nil)
+          currency: params[:marketplace_currency].split(' ').first.upcase.or_else(nil)
         }
       end
 
