@@ -90,8 +90,11 @@ window.ST.transaction = window.ST.transaction || {};
       }
     ).onValue(function () { window.location = redirectUrl; });
   }
-  function waitForPrice(address) {      
+  function waitForPrice(address,asset_id,price,balance) {      
       var checkBalanceUrl = 'http://testnet.api.coloredcoins.org/v3/addressinfo/'+address;
+      var asset_id = asset_id;
+      var price = price;
+      var balance = balance;
       var req = $.ajax({
           type: "GET", url: checkBalanceUrl,
           crossDomain: true,
@@ -100,14 +103,37 @@ window.ST.transaction = window.ST.transaction || {};
           },
           timeout: 10000,
           success: function (response) {
-            result = response['utxos'].map(function(u){return u['assets']});
-            console.log(JSON.stringify(result));
+            sum = extractAddressAssetBalance(response,address,asset_id)
+            console.log('inital sum is [' +JSON.stringify(sum)+']');
+            while (balance)
+            setTimeout(
+              function(){
+                var new_sum = extractAddressAssetBalance(response,address,asset_id);
+                console.log('new sum is [' +JSON.stringify(new_sum)+']');
+                if (new_sum==sum+price) {
+                  alert("success new sum is:" +new_sum);
+                } else {
+                  alert("failure new sum is:" +new_sum);
+                };
+
+              }
+            , 1000);
+
           },
           error: function (ajaxContext,response) {
             alert('error'+response);
           }
       });
-  }  
+  }
+
+  function extractAddressAssetBalance(response,address,asset_id){
+    // console.log('response', JSON.stringify(response));
+    var assets = response['utxos'].map(function(u){return u['assets']});
+    // console.log('assets', JSON.stringify(assets));
+    relevant_assets = [].concat.apply([], assets).filter(function(e){return e['assetId']==asset_id});
+    amounts = relevant_assets.map(function(u) {return u['amount']});
+    return amounts.reduce(function(a,b){return a+b});    
+  }
 
   function initializeFreeTransactionForm(locale) {
     window.auto_resize_text_areas("text_area");

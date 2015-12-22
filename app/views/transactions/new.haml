@@ -28,7 +28,14 @@
             = render partial: "transactions/qrcode", locals: {address: author_person.community_coin_address, price_break_down: price_break_down}
           - content_for :extra_javascript do
             :javascript
-              ST.transaction.waitForPrice("#{author_person.community_coin_address}");            
+              ST.transaction.waitForPrice(
+                "#{author_person.community_coin_address}",
+                "#{community_asset_id(@current_community.currency)}",
+                "#{price_break_down[:total].fractional/community_denomination(@current_community.currency)}",
+                null
+              );            
+          %li 
+            = author_person.community_coin_address
 
   = form_tag(form_action, method: :post, id: "transaction-form") do
 

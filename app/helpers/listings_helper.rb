@@ -75,6 +75,10 @@ module ListingsHelper
     community_currencies(Money::Currency.table)[iso_code.downcase.to_sym][:asset_id]
   end
 
+  def community_denomination(iso_code)
+    community_currencies(Money::Currency.table)[iso_code.downcase.to_sym][:subunit_to_unit]
+  end
+
   def price_as_text(listing)
     humanized_money_with_symbol(listing.price).upcase +
     unless listing.quantity.blank? then " / #{listing.quantity}" else "" end +
