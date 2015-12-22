@@ -33,8 +33,8 @@
                 "#{community_asset_id(@current_community.currency)}",
                 "#{price_break_down[:total].fractional/community_denomination(@current_community.currency)}"
               );            
-          %li 
-            = author_person.community_coin_address
+          / %li 
+          /   = author_person.community_coin_address
 
   = form_tag(form_action, method: :post, id: "transaction-form") do
 

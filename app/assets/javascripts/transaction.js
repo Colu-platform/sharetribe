@@ -93,8 +93,8 @@ window.ST.transaction = window.ST.transaction || {};
 
   var initialBalance=-1;
   var increment =0;
-  var iterations = 10;
-  var waitMiliseconds = 5000;
+  var iterations = 40;
+  var waitMiliseconds = 3000;
 
   function waitForPrice(address,asset_id,price) {      
       var checkBalanceUrl = 'http://testnet.api.coloredcoins.org/v3/addressinfo/'+address;
@@ -110,28 +110,25 @@ window.ST.transaction = window.ST.transaction || {};
           timeout: 10000,
           success: function (response) {
             var currentBalance = extractBalance(response,address,asset_id);
-            if (initialBalance<0) {initialBalance = currentBalance};
+            if (initialBalance<0) {
+              initialBalance = currentBalance;
+              alert('You have 2 minutes to pay');
+            };
             setTimeout(
               function(){
-                increment+=1;
-                console.log('increment',increment);
-                console.log('price',price);
-                console.log('initialBalance',initialBalance);
-                console.log('current balance',currentBalance);
                 if (increment >= iterations) {
-                  console.log('timed out');
+                  alert('Payment period timed out, please refresh the page to try again');
                   return
                 } else {
                   if (parseInt(currentBalance) < parseInt(initialBalance)+parseInt(price)) {
-                    console.log('trying again');
                     waitForPrice(address,asset_id,price)
                   } else {
-                    console.log('payment received');
+                    alert('Your payment was received, Thank you!');
+                    return 
                   };                  
                 }
               }
-            , waitMiliseconds);
-            console.log('starting')
+            , waitMiliseconds);            
           },
           error: function (ajaxContext,response) {
             alert('error'+response);
