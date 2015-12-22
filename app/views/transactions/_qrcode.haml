@@ -5,6 +5,6 @@
 			%p
 				= 'Pay with Community Coin: ['+price_break_down[:total].currency.iso_code+']'
 			%p{:style=>"padding-top:20px;color:gray;font-weight:normal"}
-				= address			
+				= address					
 		%span.initiate-transaction-total-value
 			= render 'qr', qr: generate_qr(data), title: data

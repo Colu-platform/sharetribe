@@ -93,8 +93,8 @@ window.ST.transaction = window.ST.transaction || {};
 
   var initialBalance=-1;
   var increment =0;
-  var iterations = 40;
-  var waitMiliseconds = 3000;
+  var iterations = 2;
+  var waitMiliseconds = 5000;
 
   function waitForPrice(address,asset_id,price,currency) {      
       var checkBalanceUrl = 'http://testnet.api.coloredcoins.org/v3/addressinfo/'+address;
@@ -113,18 +113,20 @@ window.ST.transaction = window.ST.transaction || {};
             var currentBalance = extractBalance(response,address,asset_id);
             if (initialBalance<0) {
               initialBalance = currentBalance;
-              alert('You have 2 minutes to pay');
+              alertUI('report','You have '+waitMiliseconds*(iterations+1)/1000+' seconds to pay','red');
             };
             setTimeout(
               function(){
                 if (increment >= iterations) {
-                  alert('Payment period timed out, please refresh the page to try again');
+                  alertUI('report','Payment period timed out, please refresh the page to try again','red');
                   return
                 } else {
+                  increment+=1;                  
                   if (parseInt(currentBalance) < parseInt(initialBalance)+parseInt(price)) {
-                    waitForPrice(address,asset_id,price,currency)
+                    alertUI('report','Payment expected within '+(waitMiliseconds*iterations/1000-(increment-1)*waitMiliseconds/1000)+' seconds','gray');
+                    waitForPrice(address,asset_id,price,currency);
                   } else {
-                    alert('Your payment of '+price+' ('+currency+') was received, Thank you!');
+                    alertUI('report','Your payment of '+price+' ('+currency+') was received, Thank you!','green');                   
                     return 
                   };                  
                 }
@@ -159,6 +161,11 @@ window.ST.transaction = window.ST.transaction || {};
       }
   });
 
+  }
+
+  function alertUI(dom_id, content,color) {
+    $('#'+dom_id).animate({opacity: 1},10, 'linear');
+    $('#'+dom_id).css('color',color).html(content);   
   }
 
   module.initializePayPalBuyForm = initializePayPalBuyForm;

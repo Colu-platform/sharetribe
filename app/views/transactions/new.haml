@@ -34,8 +34,9 @@
                 "#{community_asset_id(currency)}",
                 "#{price_break_down[:total].fractional/community_denomination(currency)}","#{currency}"
               );            
-          / %li 
-          /   = price_break_down
+          %li#report.initiate-transaction-totals
+              
+          
 
   = form_tag(form_action, method: :post, id: "transaction-form") do
 
