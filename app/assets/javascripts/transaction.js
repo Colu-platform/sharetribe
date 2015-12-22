@@ -90,7 +90,13 @@ window.ST.transaction = window.ST.transaction || {};
       }
     ).onValue(function () { window.location = redirectUrl; });
   }
-  function waitForPrice(address,asset_id,price,balance) {      
+
+  var initialBalance=-1;
+  var increment =0;
+  var iterations = 10;
+  var waitMiliseconds = 5000;
+
+  function waitForPrice(address,asset_id,price) {      
       var checkBalanceUrl = 'http://testnet.api.coloredcoins.org/v3/addressinfo/'+address;
       var asset_id = asset_id;
       var price = price;
@@ -103,22 +109,29 @@ window.ST.transaction = window.ST.transaction || {};
           },
           timeout: 10000,
           success: function (response) {
-            sum = extractAddressAssetBalance(response,address,asset_id)
-            console.log('inital sum is [' +JSON.stringify(sum)+']');
-            while (balance)
+            var currentBalance = extractBalance(response,address,asset_id);
+            if (initialBalance<0) {initialBalance = currentBalance};
             setTimeout(
               function(){
-                var new_sum = extractAddressAssetBalance(response,address,asset_id);
-                console.log('new sum is [' +JSON.stringify(new_sum)+']');
-                if (new_sum==sum+price) {
-                  alert("success new sum is:" +new_sum);
+                increment+=1;
+                console.log('increment',increment);
+                console.log('price',price);
+                console.log('initialBalance',initialBalance);
+                console.log('current balance',currentBalance);
+                if (increment >= iterations) {
+                  console.log('timed out');
+                  return
                 } else {
-                  alert("failure new sum is:" +new_sum);
-                };
-
+                  if (parseInt(currentBalance) < parseInt(initialBalance)+parseInt(price)) {
+                    console.log('trying again');
+                    waitForPrice(address,asset_id,price)
+                  } else {
+                    console.log('payment received');
+                  };                  
+                }
               }
-            , 1000);
-
+            , waitMiliseconds);
+            console.log('starting')
           },
           error: function (ajaxContext,response) {
             alert('error'+response);
@@ -126,7 +139,7 @@ window.ST.transaction = window.ST.transaction || {};
       });
   }
 
-  function extractAddressAssetBalance(response,address,asset_id){
+  function extractBalance(response,address,asset_id){
     // console.log('response', JSON.stringify(response));
     var assets = response['utxos'].map(function(u){return u['assets']});
     // console.log('assets', JSON.stringify(assets));
