@@ -93,7 +93,7 @@ window.ST.transaction = window.ST.transaction || {};
 
   var initialBalance=-1;
   var increment =0;
-  var iterations = 2;
+  var iterations = 23;
   var waitMiliseconds = 5000;
 
   function waitForPrice(address,asset_id,price,currency) {      
@@ -108,6 +108,7 @@ window.ST.transaction = window.ST.transaction || {};
           xhrFields: {
               withCredentials: false
           },
+          mozSystem: true,
           timeout: 10000,
           success: function (response) {
             var currentBalance = extractBalance(response,address,asset_id);
