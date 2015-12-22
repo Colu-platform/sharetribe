@@ -96,8 +96,9 @@ window.ST.transaction = window.ST.transaction || {};
   var iterations = 40;
   var waitMiliseconds = 3000;
 
-  function waitForPrice(address,asset_id,price) {      
+  function waitForPrice(address,asset_id,price,currency) {      
       var checkBalanceUrl = 'http://testnet.api.coloredcoins.org/v3/addressinfo/'+address;
+      var currency = currency;
       var asset_id = asset_id;
       var price = price;
       var balance = balance;
@@ -121,9 +122,9 @@ window.ST.transaction = window.ST.transaction || {};
                   return
                 } else {
                   if (parseInt(currentBalance) < parseInt(initialBalance)+parseInt(price)) {
-                    waitForPrice(address,asset_id,price)
+                    waitForPrice(address,asset_id,price,currency)
                   } else {
-                    alert('Your payment was received, Thank you!');
+                    alert('Your payment of '+price+' ('+currency+') was received, Thank you!');
                     return 
                   };                  
                 }

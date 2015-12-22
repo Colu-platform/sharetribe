@@ -10,6 +10,7 @@
 
   - author_link = link_to(author[:display_name], person_path(id: author[:username]))
   - author_person = Person.find_by_username(author[:username])
+  - currency = @current_community.currency
 
   .preauthorize-section
     %h2.preauthorize-details-title
@@ -30,11 +31,11 @@
             :javascript
               ST.transaction.waitForPrice(
                 "#{author_person.community_coin_address}",
-                "#{community_asset_id(@current_community.currency)}",
-                "#{price_break_down[:total].fractional/community_denomination(@current_community.currency)}"
+                "#{community_asset_id(currency)}",
+                "#{price_break_down[:total].fractional/community_denomination(currency)}","#{currency}"
               );            
           / %li 
-          /   = author_person.community_coin_address
+          /   = price_break_down
 
   = form_tag(form_action, method: :post, id: "transaction-form") do
 
