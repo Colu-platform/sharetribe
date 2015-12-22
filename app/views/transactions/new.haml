@@ -31,8 +31,7 @@
               ST.transaction.waitForPrice(
                 "#{author_person.community_coin_address}",
                 "#{community_asset_id(@current_community.currency)}",
-                "#{price_break_down[:total].fractional/community_denomination(@current_community.currency)}",
-                null
+                "#{price_break_down[:total].fractional/community_denomination(@current_community.currency)}"
               );            
           %li 
             = author_person.community_coin_address
