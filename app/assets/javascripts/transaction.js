@@ -140,13 +140,11 @@ window.ST.transaction = window.ST.transaction || {};
       });
   }
 
-  function extractBalance(response,address,asset_id){
-    // console.log('response', JSON.stringify(response));
-    var assets = response['utxos'].map(function(u){return u['assets']});
-    // console.log('assets', JSON.stringify(assets));
+  function extractBalance(response,address,asset_id){    
+    var assets = response['utxos'].map(function(u){return u['assets']});    
     relevant_assets = [].concat.apply([], assets).filter(function(e){return e['assetId']==asset_id});
-    amounts = relevant_assets.map(function(u) {return u['amount']});
-    return amounts.reduce(function(a,b){return a+b});    
+    amounts = relevant_assets.map(function(u) {return u['amount']});    
+    return amounts.length > 0 ? amounts.reduce(function(a,b){return a+b}): 0;    
   }
 
   function initializeFreeTransactionForm(locale) {
