@@ -95,23 +95,28 @@ window.ST.transaction = window.ST.transaction || {};
   var increment =0;
   var iterations = 23;
   var waitMiliseconds = 5000;
-
+  var colu_engine_api_url = "<%= APP_CONFIG.colu_engine_api_url %>";  
   function waitForPrice(address,asset_id,price,currency) {      
-      var checkBalanceUrl = 'http://testnet.api.coloredcoins.org/v3/addressinfo/'+address;
+      // var checkBalanceUrl = 'http://testnet.api.coloredcoins.org/v3/addressinfo/'+address;
+      var checkBalanceUrl = colu_engine_api_url+'get_addresses_info/';      
       var currency = currency;
       var asset_id = asset_id;
       var price = price;
       var balance = balance;
       var req = $.ajax({
-          type: "GET", url: checkBalanceUrl,
+          type: "POST", url: checkBalanceUrl,
           crossDomain: true,
           xhrFields: {
               withCredentials: false
           },
+          data:{
+            "addresses":[address]
+          },
           mozSystem: true,
           timeout: 10000,
           success: function (response) {
-            var currentBalance = extractBalance(response,address,asset_id);
+            console.log('response',JSON.stringify(response));
+            var currentBalance = extractBalanceFromEngineResponse(response,address,asset_id);
             if (initialBalance<0) {
               initialBalance = currentBalance;
               alertUI('report','You have '+waitMiliseconds*(iterations+1)/1000+' seconds to pay','red');
@@ -140,10 +145,20 @@ window.ST.transaction = window.ST.transaction || {};
       });
   }
 
-  function extractBalance(response,address,asset_id){    
-    var assets = response['utxos'].map(function(u){return u['assets']});    
+  function extractBalanceFromExplorerResponse(response,address,asset_id){    
+    var assets = response['utxos'].map(function(u){return u['assets']});
     relevant_assets = [].concat.apply([], assets).filter(function(e){return e['assetId']==asset_id});
-    amounts = relevant_assets.map(function(u) {return u['amount']});    
+    amounts = relevant_assets.map(function(u) {return u['amount']});
+    return amounts.length > 0 ? amounts.reduce(function(a,b){return a+b}): 0;    
+  }
+
+  function extractBalanceFromEngineResponse(response,address,asset_id){    
+    var assets = response.map(function(u){return u['assets']});
+    console.log("assets",JSON.stringify(assets));
+    relevant_assets = [].concat.apply([], assets).filter(function(e){return e['assetId']==asset_id});
+    console.log("relevant_assets",JSON.stringify(relevant_assets));
+    amounts = relevant_assets.map(function(u) {return u['received']});    
+    console.log("amounts",JSON.stringify(amounts));
     return amounts.length > 0 ? amounts.reduce(function(a,b){return a+b}): 0;    
   }
 
