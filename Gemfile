@@ -27,7 +27,7 @@ gem 'rqrcode-rails3'
 gem 'compass', '~> 0.13.alpha'
 
 gem 'jquery-rails', '2.1.4'
-
+gem 'httparty'
 # Bundle the extra gems:
 
 # gem 'heroku' install the Heroku toolbelt (https://toolbelt.heroku.com/) instead (as gem had some problems)

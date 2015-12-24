@@ -27,9 +27,10 @@
         %li
           = render partial: "transactions/price_break_down", locals: price_break_down
         %li
-          = @address
-          = @phone_number
-          = @asset_id
+          / = "static_address: #{@static_address}"
+          / = "address: #{@address}"
+          / = "phone_number: #{@phone_number}"
+          / = "asset_id: #{@asset_id}"
         - if @address 
           %li
             = render partial: "transactions/qrcode", locals: {address: @address, price_break_down: price_break_down}

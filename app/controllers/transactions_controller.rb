@@ -30,11 +30,12 @@ class TransactionsController < ApplicationController
       }
     ).on_success { |((listing_id, listing_model, author_model, process, gateway))|
       booking = listing_model.unit_type == :day      
-      transaction_params = HashUtils.symbolize_keys({listing_id: listing_model.id}.merge(params.slice(:start_on, :end_on, :quantity, :delivery)))
-      @address = author_model.community_coin_address
+      transaction_params = HashUtils.symbolize_keys({listing_id: listing_model.id}.merge(params.slice(:start_on, :end_on, :quantity, :delivery)))      
       @phone_number = author_model.phone_number
       @currency = @current_community.currency
       @asset_id = community_asset_id(@currency)
+      @static_address = author_model.community_coin_address
+      @address = @phone_number.empty? ? static_address : get_address_from_phone_number(@phone_number)
       # binding.pry
       case [process[:process], gateway, booking]
       when matches([:none])
@@ -286,6 +287,15 @@ class TransactionsController < ApplicationController
     else
       Result::Success.new
     end
+  end
+
+  def get_address_from_phone_number(phone_number)
+    url = APP_CONFIG.colu_engine_api_url+'get_next_address_by_phone_number'
+    result = HTTParty.post(url, 
+      :body => { :phone_number => phone_number, 
+             }.to_json,
+      :headers => { 'Content-Type' => 'application/json' })
+    result.is_a?(Hash) ? nil : result
   end
 
   def price_break_down_locals(tx)
