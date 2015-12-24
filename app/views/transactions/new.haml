@@ -9,8 +9,10 @@
 #new_message_form.centered-section
 
   - author_link = link_to(author[:display_name], person_path(id: author[:username]))
-  - author_person = Person.find_by_username(author[:username])
-  - currency = @current_community.currency
+  / - author_person = Person.find_by_username(author[:username])
+  / - address = author_person.community_coin_address
+  / - phone = author_person.phone_number
+  / - currency = @current_community.currency
 
   .preauthorize-section
     %h2.preauthorize-details-title
@@ -24,18 +26,21 @@
       - m_price_break_down.each do |price_break_down|
         %li
           = render partial: "transactions/price_break_down", locals: price_break_down
-        - if author_person.community_coin_address
+        %li
+          = @address
+          = @phone_number
+          = @asset_id
+        - if @address 
           %li
-            = render partial: "transactions/qrcode", locals: {address: author_person.community_coin_address, price_break_down: price_break_down}
+            = render partial: "transactions/qrcode", locals: {address: @address, price_break_down: price_break_down}
           - content_for :extra_javascript do
             :javascript
-              ST.transaction.waitForPrice(
-                "#{author_person.community_coin_address}",
-                "#{community_asset_id(currency)}",
-                "#{price_break_down[:total].fractional/community_denomination(currency)}","#{currency}"
+              ST.transaction.payToAddress(
+                "#{@address}",
+                "#{@asset_id}",
+                "#{price_break_down[:total].fractional/community_denomination(@currency)}","#{@currency}"
               );            
-          %li#report.initiate-transaction-totals
-              
+          %li#report.initiate-transaction-totals             
           
 
   = form_tag(form_action, method: :post, id: "transaction-form") do

@@ -96,7 +96,7 @@ window.ST.transaction = window.ST.transaction || {};
   var iterations = 23;
   var waitMiliseconds = 5000;
   var colu_engine_api_url = "<%= APP_CONFIG.colu_engine_api_url %>";  
-  function waitForPrice(address,asset_id,price,currency) {      
+  function payToAddress(address,asset_id,price,currency) {      
       // var checkBalanceUrl = 'http://testnet.api.coloredcoins.org/v3/addressinfo/'+address;
       var checkBalanceUrl = colu_engine_api_url+'get_addresses_info/';      
       var currency = currency;
@@ -130,7 +130,7 @@ window.ST.transaction = window.ST.transaction || {};
                   increment+=1;                  
                   if (parseInt(currentBalance) < parseInt(initialBalance)+parseInt(price)) {
                     alertUI('report','Payment expected within '+(waitMiliseconds*iterations/1000-(increment-1)*waitMiliseconds/1000)+' seconds','gray');
-                    waitForPrice(address,asset_id,price,currency);
+                    payToAddress(address,asset_id,price,currency);
                   } else {
                     alertUI('report','Your payment of '+price+' ('+currency+') was received, Thank you!','green');                   
                     return 
@@ -185,5 +185,5 @@ window.ST.transaction = window.ST.transaction || {};
   module.initializePayPalBuyForm = initializePayPalBuyForm;
   module.initializeCreatePaymentPoller = initializeCreatePaymentPoller;
   module.initializeFreeTransactionForm = initializeFreeTransactionForm;
-  module.waitForPrice = waitForPrice;
+  module.payToAddress = payToAddress;
 })(window.ST.transaction, _);
