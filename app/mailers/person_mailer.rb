@@ -61,7 +61,17 @@ class PersonMailer < ActionMailer::Base
                      :subject => t("emails.new_payment.new_payment"))
     end
   end
-
+  def new_cc_payment(payment, community)
+    @email_type =  "email_about_new_payments"
+    @payment = payment
+    recipient = @payment.recipient
+    set_up_urls(recipient, community, @email_type)
+    with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
+      premailer_mail(:to => recipient.confirmed_notification_emails_to,
+                     :from => community_specific_sender(community),
+                     :subject => t("emails.new_payment.new_payment"))
+    end
+  end
   def receipt_to_payer(payment, community)
     @email_type =  "email_about_new_payments"
     @payment = payment

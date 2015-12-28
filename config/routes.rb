@@ -85,6 +85,7 @@ Kassi::Application.routes.draw do
     # post pay flow
     match "/listings/:listing_id/post_pay" => "post_pay_transactions#new", :as => :post_pay_listing
     match "/listings/:listing_id/create_transaction" => "post_pay_transactions#create", :as => :create_transaction, :method => :post
+    match "/listings/:listing_id/close" => "post_pay_transactions#close", :as => :close_transaction, :method => :post
 
     # free flow
     match "/listings/:listing_id/create_contact" => "free_transactions#create_contact", :as => :create_contact
@@ -399,3 +400,4 @@ Kassi::Application.routes.draw do
   #catches all non matched routes, shows 404 and logs more reasonably than the alternative RoutingError + stacktrace
   match "*path" => "errors#not_found"
 end
+

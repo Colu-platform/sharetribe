@@ -23,6 +23,11 @@ class PostPayTransactionsController < ApplicationController
     }
   end
 
+  def close
+    @listing.update_attribute(:open, false)
+    # redirect_to "listings/#{@listing_id}"
+  end
+
   def create
     contact_form = new_contact_form(params[:listing_conversation])
 

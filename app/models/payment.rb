@@ -39,7 +39,7 @@ class Payment < ActiveRecord::Base
   belongs_to :payment_gateway
 
   validates_inclusion_of :status, :in => VALID_STATUSES
-  validate :validate_sum
+  # validate :validate_sum
 
   delegate :commission_from_seller, to: :community
 

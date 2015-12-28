@@ -924,6 +924,11 @@ en:
       price_per_unit_type: "Price per %{unit_type}"
       quantity: "Quantity:"
       you_have_received_new_payment: "You have been paid <b>%{payment_sum}</b> for <b>%{listing_title}</b> by %{payer_full_name}. Here is your receipt."
+    new_cc_payment:
+      new_payment: "You have received a new payment"
+      price_per_unit_type: "Price per %{unit_type}"
+      quantity: "Quantity:"
+      you_have_received_new_payment: "You have been paid <b>%{payment_sum}</b> for <b>%{listing_title}</b> by %{payer_full_name}. You have 30 days to send the product to %{payer_given_name}. Here is the transaction."      
     paypal_new_payment:
       paypal_gateway_fee: "PayPal's fee:"
       shipping_total: "Shipping:"
