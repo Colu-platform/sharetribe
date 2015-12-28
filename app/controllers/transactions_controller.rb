@@ -35,7 +35,9 @@ class TransactionsController < ApplicationController
       @currency = @current_community.currency
       @asset_id = community_asset_id(@currency)
       @static_address = author_model.community_coin_address
-      @address = @phone_number.empty? ? static_address : get_address_from_phone_number(@phone_number)
+      @address = @phone_number.empty? ? static_address : get_address_from_phone_number(@phone_number)      
+      @listing_id = listing_id
+      @listing_process_id = Listing.find(listing_id).transaction_process_id
       # binding.pry
       case [process[:process], gateway, booking]
       when matches([:none])
@@ -140,6 +142,7 @@ class TransactionsController < ApplicationController
 
     tx_model = Transaction.where(id: tx[:id]).first
     conversation = transaction_conversation[:conversation]
+
     listing = Listing.where(id: tx[:listing_id]).first
 
     messages_and_actions = TransactionViewUtils::merge_messages_and_transitions(
@@ -291,10 +294,18 @@ class TransactionsController < ApplicationController
 
   def get_address_from_phone_number(phone_number)
     url = APP_CONFIG.colu_engine_api_url+'get_next_address_by_phone_number'
-    result = HTTParty.post(url, 
-      :body => { :phone_number => phone_number, 
-             }.to_json,
-      :headers => { 'Content-Type' => 'application/json' })
+    begin
+      result = HTTParty.post(url, 
+        :body => {
+          :phone_number => phone_number
+        }.to_json,
+        :headers => { 
+          'Content-Type' => 'application/json' 
+        }
+      )
+    rescue => e
+      Rails.logger.debug("Something went wrong when trying to connect to Colu's engint [#{e}]")
+    end
     result.is_a?(Hash) ? nil : result
   end
 
