@@ -25,7 +25,22 @@ class PostPayTransactionsController < ApplicationController
 
   def close
     @listing.update_attribute(:open, false)
-    # redirect_to "listings/#{@listing_id}"
+    payer = @current_user
+    recipient = Person.find(@listing.author_id)
+    sum = @listing.price_cents
+    payment = Payment.new(status: 'paid')
+    payment.sum_cents = sum
+    payment.community = @current_community
+    payment.transaction = Transaction.find_by_listing_id(@listing.id)
+    payment.recipient = recipient
+    payment.payer = payer
+    # redirect_to listing_path @listing.id
+    # binding.pry
+    # render "listing_conversations/contact_foo", locals: {
+    #   foo: 'bar'
+    # }
+    # binding.pry
+    PersonMailer.new_cc_payment(payment,@current_community).deliver
   end
 
   def create

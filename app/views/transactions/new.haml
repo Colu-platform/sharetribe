@@ -39,7 +39,9 @@
               ST.transaction.payToAddress(
                 "#{@address}",
                 "#{@asset_id}",
-                "#{price_break_down[:total].fractional/community_denomination(@currency)}","#{@currency}"
+                "#{price_break_down[:total].fractional/community_denomination(@currency)}",
+                "#{@currency}",
+                "#{listing[:id]}"
               );            
           %li#report.initiate-transaction-totals             
           
