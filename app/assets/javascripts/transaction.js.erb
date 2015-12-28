@@ -93,7 +93,7 @@ window.ST.transaction = window.ST.transaction || {};
 
   var initialBalance=-1;
   var increment =0;
-  var iterations = 23;
+  var iterations = 2;
   var waitMiliseconds = 5000;
   var colu_engine_api_url = "<%= APP_CONFIG.colu_engine_api_url %>";  
   function payToAddress(address,asset_id,price,currency) {      
@@ -119,20 +119,21 @@ window.ST.transaction = window.ST.transaction || {};
             var currentBalance = extractBalanceFromEngineResponse(response,address,asset_id);
             if (initialBalance<0) {
               initialBalance = currentBalance;
-              alertUI('report','You have '+waitMiliseconds*(iterations+1)/1000+' seconds to pay','red');
+              alertUI('report','You have '+Math.round(waitMiliseconds*(iterations+1)/1000)+' seconds to pay','red');
             };
             setTimeout(
               function(){
                 if (increment >= iterations) {
                   alertUI('report','Payment period timed out, please refresh the page to try again','red');
+                  // window.location.href="listings/close";
                   return
                 } else {
                   increment+=1;                  
                   if (parseInt(currentBalance) < parseInt(initialBalance)+parseInt(price)) {
-                    alertUI('report','Payment expected within '+(waitMiliseconds*iterations/1000-(increment-1)*waitMiliseconds/1000)+' seconds','gray');
+                    alertUI('report','Payment expected within '+Math.round(waitMiliseconds*iterations/1000-(increment-1)*waitMiliseconds/1000)+' seconds','gray');
                     payToAddress(address,asset_id,price,currency);
                   } else {
-                    alertUI('report','Your payment of '+price+' ('+currency+') was received, Thank you!','green');                   
+                    alertUI('report','Your payment of '+price+' ('+currency+') was received, Thank you!','green');
                     return 
                   };                  
                 }
