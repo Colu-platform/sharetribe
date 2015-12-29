@@ -1,8 +1,6 @@
-- conversation_url = person_transaction_url(@recipient, @url_params.merge({:id => @payment.id.to_s}))
-/ - binding.pry
 %tr
   %td{:align => "left"}
     %font{body_font}
       = t("emails.new_cc_payment_sent.you_have_received_new_payment", :listing_title => @listing.title, :payment_sum => humanized_money_with_symbol(@payment.sum_cents), :payee_full_name => @payment.recipient.name(@payment.community), :payee_given_name => @payment.recipient.given_name_or_username).html_safe
 
-= render :partial => "action_button", :locals => { :text => t("emails.conversation_status_changed.view_thread"), :url => conversation_url}
+= render :partial => "action_button", :locals => { :text => t("emails.new_cc_payment_sent.view_tx"), :url => 'http://coloredcoins.org/explorer/testnet/address/mz2FFKoPA9aAGiPvhwxgaYdyc1DdaUv2HT'}
