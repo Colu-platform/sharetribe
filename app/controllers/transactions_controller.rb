@@ -31,11 +31,11 @@ class TransactionsController < ApplicationController
     ).on_success { |((listing_id, listing_model, author_model, process, gateway))|
       booking = listing_model.unit_type == :day      
       transaction_params = HashUtils.symbolize_keys({listing_id: listing_model.id}.merge(params.slice(:start_on, :end_on, :quantity, :delivery)))      
-      @phone_number = author_model.phone_number || ''
+      @phone_number = author_model.phone_number
       @currency = @current_community.currency
       @asset_id = community_asset_id(@currency)
       @static_address = author_model.community_coin_address
-      @address = @phone_number.empty? ? @static_address : get_address_from_phone_number(@phone_number)      
+      @address = @phone_number.blank? ? @static_address : get_address_from_phone_number(@phone_number)      
       @listing_id = listing_id
       @listing_process_id = Listing.find(listing_id).transaction_process_id
       # binding.pry

@@ -70,7 +70,7 @@ class PersonMailer < ActionMailer::Base
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
       premailer_mail(:to => recipient.confirmed_notification_emails_to,
                      :from => community_specific_sender(community),
-                     :subject => t("emails.new_payment.new_payment"))
+                     :subject => t("emails.new_cc_payment_received.new_payment"))
     end
   end
   def new_cc_payment_sent(payment, community,listing)
@@ -82,7 +82,7 @@ class PersonMailer < ActionMailer::Base
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
       premailer_mail(:to => recipient.confirmed_notification_emails_to,
                      :from => community_specific_sender(community),
-                     :subject => t("emails.new_payment.new_payment"))
+                     :subject => t("emails.new_cc_payment_sent.new_payment"))
     end
   end  
   def receipt_to_payer(payment, community)

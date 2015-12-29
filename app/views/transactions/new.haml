@@ -31,7 +31,8 @@
           / = "address: #{@address}"
           / = "phone_number: #{@phone_number}"
           / = "asset_id: #{@asset_id}"
-        - if @address 
+
+        - unless @address.blank?
           %li
             = render partial: "transactions/qrcode", locals: {address: @address, price_break_down: price_break_down}
           - content_for :extra_javascript do
@@ -43,7 +44,7 @@
                 "#{@currency}",
                 "#{listing[:id]}"
               );
-        - if @address             
+        - unless @address.blank?
           %li#report.initiate-transaction-totals             
           
 
