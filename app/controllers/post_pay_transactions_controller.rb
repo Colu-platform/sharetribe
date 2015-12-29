@@ -34,11 +34,12 @@ class PostPayTransactionsController < ApplicationController
     @payment.recipient = recipient
     @payment.payer = payer
     @payment.save
-    # binding.pry
+    sum_to_display = (sum/community_denomination(@current_community.currency)).round    
+    @money = Money.new(sum_to_display,@current_community.currency.downcase.to_sym)    
     if @payment
       @listing.update_attribute(:open, false)
-      PersonMailer.new_cc_payment_received(@payment,@current_community,@listing,@txid).deliver
-      PersonMailer.new_cc_payment_sent(@payment,@current_community,@listing,@txid).deliver      
+      PersonMailer.new_cc_payment_received(@payment,@current_community,@listing,@txid,@money).deliver
+      PersonMailer.new_cc_payment_sent(@payment,@current_community,@listing,@txid,@money).deliver      
       flash[:success] = "Transaction successful, check your email"
       redirect_to root
     else
