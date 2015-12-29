@@ -23,21 +23,26 @@ class PostPayTransactionsController < ApplicationController
     }
   end
 
-  def close
-    @listing.update_attribute(:open, false)
+  def close    
     payer = @current_user
     recipient = Person.find(@listing.author_id)
     sum = @listing.price_cents
-    payment = Payment.new(status: 'paid')
-    payment.sum_cents = sum
-    payment.community = @current_community
-    payment.transaction = Transaction.find_by_listing_id(@listing.id)
-    payment.recipient = recipient
-    payment.payer = payer
-    payment.save
+    @payment = Payment.new(status: 'paid')
+    @payment.sum_cents = sum
+    @payment.community = @current_community   
+    @payment.recipient = recipient
+    @payment.payer = payer
+    @payment.save
     # binding.pry
-    PersonMailer.new_cc_payment(payment,@current_community).deliver
-    redirect_to root_path
+    if @payment
+      @listing.update_attribute(:open, false)
+      PersonMailer.new_cc_payment(@payment,@current_community,@listing).deliver
+      flash[:success] = "Transaction successful, check your email"
+      redirect_to root
+    else
+      flash[:error] = "Something went wrong. Please try again."
+      redirect_to root
+    end
   end
 
   def create

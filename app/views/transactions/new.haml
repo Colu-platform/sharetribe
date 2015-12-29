@@ -42,7 +42,8 @@
                 "#{price_break_down[:total].fractional/community_denomination(@currency)}",
                 "#{@currency}",
                 "#{listing[:id]}"
-              );            
+              );
+        - if @address             
           %li#report.initiate-transaction-totals             
           
 

@@ -1,7 +1,9 @@
-- { :notice => "ss-check", :warning => "ss-info", :error => "ss-alert" }.each do |announcement, icon_class|
+- {:success => "ss-error", :notice => "ss-check", :warning => "ss-info", :error => "ss-alert" }.each do |announcement, icon_class|
+  / - binding.pry
   - if flash[announcement]
+  - announcement == :success ? style='background-color:#4DD9B4;': style=''
     .flash-notifications
-      .flash-notification{:class => "flash-#{announcement.to_s}"}
+      .flash-notification{:class => "flash-#{announcement.to_s}",:style => style}
         .flash-icon{:class => icon_class}
         .flash-text
           = flash[announcement]

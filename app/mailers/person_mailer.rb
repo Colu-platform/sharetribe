@@ -61,9 +61,10 @@ class PersonMailer < ActionMailer::Base
                      :subject => t("emails.new_payment.new_payment"))
     end
   end
-  def new_cc_payment(payment, community)
+  def new_cc_payment(payment, community,listing)
     @email_type =  "email_about_new_payments"
     @payment = payment
+    @listing = listing
     recipient = @payment.recipient
     set_up_urls(recipient, community, @email_type)
     with_locale(recipient.locale, community.locales.map(&:to_sym), community.id) do
