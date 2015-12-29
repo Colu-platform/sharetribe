@@ -34,13 +34,10 @@ class PostPayTransactionsController < ApplicationController
     payment.transaction = Transaction.find_by_listing_id(@listing.id)
     payment.recipient = recipient
     payment.payer = payer
-    # redirect_to listing_path @listing.id
-    # binding.pry
-    # render "listing_conversations/contact_foo", locals: {
-    #   foo: 'bar'
-    # }
+    payment.save
     # binding.pry
     PersonMailer.new_cc_payment(payment,@current_community).deliver
+    redirect_to root_path
   end
 
   def create
