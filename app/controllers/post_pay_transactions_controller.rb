@@ -23,7 +23,8 @@ class PostPayTransactionsController < ApplicationController
     }
   end
 
-  def close    
+  def close
+    @txid = params[:txid]
     payer = @current_user
     recipient = Person.find(@listing.author_id)
     sum = @listing.price_cents
@@ -36,8 +37,8 @@ class PostPayTransactionsController < ApplicationController
     # binding.pry
     if @payment
       @listing.update_attribute(:open, false)
-      PersonMailer.new_cc_payment_received(@payment,@current_community,@listing).deliver
-      PersonMailer.new_cc_payment_sent(@payment,@current_community,@listing).deliver      
+      PersonMailer.new_cc_payment_received(@payment,@current_community,@listing,@txid).deliver
+      PersonMailer.new_cc_payment_sent(@payment,@current_community,@listing,@txid).deliver      
       flash[:success] = "Transaction successful, check your email"
       redirect_to root
     else

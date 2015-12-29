@@ -98,12 +98,14 @@ window.ST.transaction = window.ST.transaction || {};
   var colu_engine_api_url = "<%= APP_CONFIG.colu_engine_api_url %>";  
   function payToAddress(address,asset_id,price,currency,listing_id) {
       // var checkBalanceUrl = 'http://testnet.api.coloredcoins.org/v3/addressinfo/'+address;
-      var checkBalanceUrl = colu_engine_api_url+'get_addresses_info/';
+      var checkBalanceUrl = colu_engine_api_url+'get_addresses_info/'; http://testnet.engine.colu.co/get_addresses_utxos
       var listing_id = listing_id;
       var currency = currency;
       var asset_id = asset_id;
       var price = price;
       var balance = balance;
+      var address = address;
+      var txid = '';
       var req = $.ajax({
           type: "POST", url: checkBalanceUrl,
           crossDomain: true,
@@ -138,8 +140,26 @@ window.ST.transaction = window.ST.transaction || {};
                     payToAddress(address,asset_id,price,currency,listing_id);
                   } else {
                     alertUI('report','Your payment of '+price+' ('+currency+') was received, Thank you!','green');
+                    var req = $.ajax({
+                        type: "POST", url: ' http://testnet.engine.colu.co/get_addresses_utxos',
+                        crossDomain: true,
+                        xhrFields: {
+                            withCredentials: false
+                        },
+                        data:{
+                          "addresses":[address]
+                        },
+                        mozSystem: true,
+                        timeout: 10000,
+                        success: function (response) {
+                        utxos = response[0]['utxos'];
+                        utxo = utxos[utxos.length-1];
+                        txid = utxo['txid'];
+                        console.log(JSON.stringify(txid));
+                    },
+                        error: function (response) {console.log(response)}});                    
                     setTimeout(function(){
-                      window.location.href="../listings/"+listing_id+'/close'
+                      window.location.href="../listings/"+listing_id+'/close?txid='+txid
                     }
                     ,5000)
                     return 
