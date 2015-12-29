@@ -929,13 +929,13 @@ en:
       price_per_unit_type: "Price per %{unit_type}"
       quantity: "Quantity:"
       view_tx: "View Transaction"
-      you_have_received_new_payment: "You have been paid <b>%{payment_sum}</b> for <b>%{listing_title}</b> by %{payer_full_name}. You have 30 days to send the product to %{payer_given_name}. Here is the transaction."  
+      you_have_received_new_payment: "You have been paid <b>%{payment_sum}</b> for <b>%{listing_title}</b> by %{payer_full_name}. You have 30 days to send the product to %{payer_given_name}. Follow the link below to view the transaction on the Bitcoin blockchain."  
     new_cc_payment_sent:
       new_payment: "Your payment was received"
       price_per_unit_type: "Price per %{unit_type}"
       quantity: "Quantity:"
       view_tx: "View Transaction"
-      you_have_received_new_payment: "You have paid <b>%{payment_sum}</b> for <b>%{listing_title}</b> to %{payee_full_name}. The item should arrive within 30 days. Here is the transaction."           
+      you_have_received_new_payment: "You have paid <b>%{payment_sum}</b> for <b>%{listing_title}</b> to %{payee_full_name}. The item should arrive within 30 days. Follow the link below to view the transaction on the Bitcoin blockchain."           
     paypal_new_payment:
       paypal_gateway_fee: "PayPal's fee:"
       shipping_total: "Shipping:"
