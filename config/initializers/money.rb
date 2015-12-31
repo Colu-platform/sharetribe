@@ -116,6 +116,24 @@ MoneyRails.configure do |config|
     asset_id:               'LFgppooxmEjrDbDzBK1N9pWdHNDdEybFfNXcr'
   }
 
+  config.register_currency = {
+    priority:               1,
+    iso_code:               "WEW",
+    name:                   "WeWork Coin",
+    symbol:                 "☭",
+    alternate_symbols:      ["руб.", "р."],
+    subunit:                "wees",
+    subunit_to_unit:        100,
+    symbol_first:           false,
+    html_entity:            "&#9773;",
+    decimal_mark:           ",",
+    thousands_separator:    ".",
+    iso_numeric:            "643",
+    smallest_denomination:  1,
+    community_coin:         true,
+    asset_id:               'U9DgSwidXVDaibzom2pMR3goGzL3p7SJYTi5G'
+  }
+
   # Register a custom currency
   #
   # Example:
