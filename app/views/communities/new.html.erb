@@ -1,7 +1,4 @@
 <h2>Set up your marketplace</h2>
-<% first_name = Faker::Name.first_name %>
-<% last_name = Faker::Name.last_name %>
-<% name = first_name +' '+last_name %>
 <% if errors.present? %>
 <p class="new-marketplace-errors"><%= errors.join('<br />').html_safe %></p>
 <% end %>
@@ -30,7 +27,7 @@
 
   <div class="new-marketplace-form-row">
     <label class="new-marketplace-label">Marketplace name</label>
-    <input class="new-marketplace-input" name="marketplace_name" value="<%= Faker::Lorem.words(2).join('-') %>" />
+    <input class="new-marketplace-input" name="marketplace_name" />
   </div>
 
   <div class="new-marketplace-form-row">
