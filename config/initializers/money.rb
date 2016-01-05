@@ -131,7 +131,7 @@ MoneyRails.configure do |config|
     iso_numeric:            "643",
     smallest_denomination:  1,
     community_coin:         true,
-    asset_id:               'U9DgSwidXVDaibzom2pMR3goGzL3p7SJYTi5G'
+    asset_id:               'LEfS3APdnnQVk1mmX2AdEaeKjosNmSKT6LgMn'
   }
 
   # Register a custom currency
