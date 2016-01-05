@@ -415,7 +415,8 @@ class Community < ActiveRecord::Base
     if domain.present? && use_domain? # custom domain
       dom = domain
     else # just a subdomain specified
-      dom = "#{self.ident}.#{default_host}"
+      # dom = "#{self.ident}.#{default_host}"
+      dom = default_host
       dom += ":#{port_string}" unless port_string.blank?
     end
 
