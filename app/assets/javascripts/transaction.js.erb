@@ -98,7 +98,7 @@ window.ST.transaction = window.ST.transaction || {};
   var colu_engine_api_url = "<%= APP_CONFIG.colu_engine_api_url %>";  
   function payToAddress(address,asset_id,price,currency,listing_id) {
       // var checkBalanceUrl = 'http://testnet.api.coloredcoins.org/v3/addressinfo/'+address;
-      var checkBalanceUrl = colu_engine_api_url+'get_addresses_info/'; http://testnet.engine.colu.co/get_addresses_utxos
+      var checkBalanceUrl = colu_engine_api_url+'get_addresses_info/';
       var listing_id = listing_id;
       var currency = currency;
       var asset_id = asset_id;
@@ -141,7 +141,7 @@ window.ST.transaction = window.ST.transaction || {};
                   } else {
                     alertUI('report','Your payment of '+price+' ('+currency+') was received, Thank you!','green');
                     var req = $.ajax({
-                        type: "POST", url: ' http://testnet.engine.colu.co/get_addresses_utxos',
+                        type: "POST", url: colu_engine_api_url+'get_addresses_utxos',
                         crossDomain: true,
                         xhrFields: {
                             withCredentials: false
