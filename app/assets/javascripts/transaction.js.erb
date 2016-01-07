@@ -97,7 +97,10 @@ window.ST.transaction = window.ST.transaction || {};
   var waitMiliseconds = 5000;
   var colu_engine_api_url = "<%= APP_CONFIG.colu_engine_api_url %>";  
   function payToAddress(address,asset_id,price,currency,listing_id) {
-      var checkBalanceUrl = colu_engine_api_url+'get_addresses_info/';
+      var checkBalanceUrl=colu_engine_api_url+'get_addresses_info/';
+      var checkUtxosUrl=colu_engine_api_url+'get_addresses_utxos/';
+      // console.log("checkBalanceUrl",checkBalanceUrl);
+      // console.log("checkUtxosUrl",checkUtxosUrl);
       var listing_id = listing_id;
       var currency = currency;
       var asset_id = asset_id;
@@ -140,7 +143,7 @@ window.ST.transaction = window.ST.transaction || {};
                   } else {
                     alertUI('report','Your payment of '+price+' ('+currency+') was received, Thank you!','green');
                     var req = $.ajax({
-                        type: "POST", url: colu_engine_api_url+'get_addresses_utxos',
+                        type: "POST", url: checkUtxosUrl,
                         crossDomain: true,
                         xhrFields: {
                             withCredentials: false
@@ -168,7 +171,7 @@ window.ST.transaction = window.ST.transaction || {};
             , waitMiliseconds);            
           },
           error: function (ajaxContext,response) {
-            alert('error'+response);
+            alert('error : ['+response+']');
           }
       });
   }
