@@ -3,20 +3,16 @@
   "description": "One click Community",
   "website": "http://colu.co",
   "repository": "https://github.com/assafshomer/sharetribe",
-  "logo": "https://raw.githubusercontent.com/assafshomer/sharetribe/master/app/assets/images/logos/default.png",
+  "logo": "https://raw.githubusercontent.com/assafshomer/sharetribe/master/app/assets/images/logos/full/default.png",
   "success_url": "/",
-  "env": {
-    "TOSHI_NETWORK": {
-      "description": "Specifies which network to connect to (one of `bitcoin` or `testnet3`)",
-      "value": "testnet3"
-    },
-    "TOSHI_ENV": "production"
+  "scripts": {
+      "postdeploy": "rake heroku:config;heroku addons:destroy heroku-plstgresql;heroku config:add DATABASE_URL='mysql2://'$(echo $(heroku config:get CLEARDB_DATABASE_URL) | cut -c 9-);heroku run bundle exec rake db:schema:load;heroku addons:open scheduler"
   },
   "addons": [
-    "heroku-postgresql",
-    "redistogo"
+      "memcachier:dev",
+      "ssl:endpoint",
+      "flying_sphinx:wooden",
+      "cleardb:ignite",
+      "sendgrid:starter"
   ],
-  "scripts": {
-    "postdeploy": "rake heroku:config"
-  }
 }
