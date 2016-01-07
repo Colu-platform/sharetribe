@@ -5,9 +5,6 @@
   "repository": "https://github.com/assafshomer/sharetribe",
   "logo": "https://raw.githubusercontent.com/assafshomer/sharetribe/master/app/assets/images/logos/full/default.png",
   "success_url": "/",
-  "env": {
-    "DATABASE_URL":"'mysql2://'$(echo $(CLEARDB_DATABASE_URL) | cut -c 9-)"
-  },
   "scripts": {
       "postdeploy": "rake db:schema:load"
   },
