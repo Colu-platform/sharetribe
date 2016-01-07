@@ -1,0 +1,22 @@
+{
+  "name": "Crypto Community",
+  "description": "One click Community",
+  "website": "http://colu.co",
+  "repository": "https://github.com/assafshomer/sharetribe",
+  "logo": "https://raw.githubusercontent.com/assafshomer/sharetribe/master/app/assets/images/logos/default.png",
+  "success_url": "/",
+  "env": {
+    "TOSHI_NETWORK": {
+      "description": "Specifies which network to connect to (one of `bitcoin` or `testnet3`)",
+      "value": "testnet3"
+    },
+    "TOSHI_ENV": "production"
+  },
+  "addons": [
+    "heroku-postgresql",
+    "redistogo"
+  ],
+  "scripts": {
+    "postdeploy": "rake heroku:config"
+  }
+}
