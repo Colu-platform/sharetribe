@@ -134,6 +134,30 @@ MoneyRails.configure do |config|
     asset_id:               'LEfS3APdnnQVk1mmX2AdEaeKjosNmSKT6LgMn'
   }
 
+if APP_CONFIG.currency_iso_code && APP_CONFIG.currency_name && APP_CONFIG.currency_symbol && APP_CONFIG.currency_asset_id
+
+  config.register_currency = {
+    priority:               1,
+    iso_code:               APP_CONFIG.currency_iso_code,
+    name:                   APP_CONFIG.currency_name,
+    symbol:                 APP_CONFIG.currency_symbol,
+    alternate_symbols:      ["руб.", "р."],
+    subunit:                "wees",
+    subunit_to_unit:        100,
+    symbol_first:           false,
+    html_entity:            "&#9773;",
+    decimal_mark:           ",",
+    thousands_separator:    ".",
+    iso_numeric:            "643",
+    smallest_denomination:  1,
+    community_coin:         true,
+    asset_id:               APP_CONFIG.currency_asset_id
+  } 
+  
+end
+
+ 
+
   # Register a custom currency
   #
   # Example:
