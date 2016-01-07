@@ -9,7 +9,7 @@
     "DATABASE_URL":"'mysql2://'$(echo $(CLEARDB_DATABASE_URL) | cut -c 9-)"
   },
   "scripts": {
-      "postdeploy": "rake heroku:config;heroku addons:destroy heroku-plstgresql;heroku config:add DATABASE_URL='mysql2://'$(echo $(heroku config:get CLEARDB_DATABASE_URL) | cut -c 9-);heroku run bundle exec rake db:schema:load;heroku addons:open scheduler"
+      "postdeploy": "rake db:schema:load"
   },
   "addons": [
       "memcachier:dev",
