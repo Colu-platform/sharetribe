@@ -35,10 +35,9 @@ class TransactionsController < ApplicationController
       @currency = @current_community.currency
       @asset_id = community_asset_id(@currency)
       @static_address = author_model.community_coin_address
-      @address = @phone_number.blank? ? @static_address : get_address_from_phone_number(@phone_number)      
+      @address = @phone_number.blank? ? @static_address : get_address_from_phone_number(@phone_number)
       @listing_id = listing_id
       @listing_process_id = Listing.find(listing_id).transaction_process_id
-      # binding.pry
       case [process[:process], gateway, booking]
       when matches([:none])
         render_free(listing_model: listing_model, author_model: author_model, community: @current_community, params: transaction_params)

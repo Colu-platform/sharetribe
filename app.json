@@ -5,9 +5,9 @@
   "repository": "https://github.com/assafshomer/sharetribe",
   "logo": "https://raw.githubusercontent.com/assafshomer/sharetribe/master/app/assets/images/logos/full/default.png",
   "success_url": "/",
-  "scripts": {
-      "postdeploy": "rake db:schema:load"
-  },
+  // "scripts": {
+  //     "postdeploy": "rake db:schema:load"
+  // },
   "addons": [
       "memcachier:dev",
       "ssl:endpoint",

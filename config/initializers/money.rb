@@ -94,7 +94,7 @@ MoneyRails.configure do |config|
     thousands_separator:    ".",
     iso_numeric:            "643",
     smallest_denomination:  1,
-    community_coin:         true,
+    community_coin:         false,
     asset_id:               'LJ4bAu5Gq5qLz3ojWagYtkntwyEmi41LNhrcj'
   }
 
@@ -112,7 +112,7 @@ MoneyRails.configure do |config|
     thousands_separator:    ".",
     iso_numeric:            "643",
     smallest_denomination:  1,
-    community_coin:         true,
+    community_coin:         false,
     asset_id:               'LFgppooxmEjrDbDzBK1N9pWdHNDdEybFfNXcr'
   }
 
@@ -130,7 +130,7 @@ MoneyRails.configure do |config|
     thousands_separator:    ".",
     iso_numeric:            "643",
     smallest_denomination:  1,
-    community_coin:         true,
+    community_coin:         false,
     asset_id:               'LEfS3APdnnQVk1mmX2AdEaeKjosNmSKT6LgMn'
   }
 

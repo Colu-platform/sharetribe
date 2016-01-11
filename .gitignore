@@ -43,3 +43,6 @@ coverage/
 .idea/
 *.sock
 .vagrant
+deploy.sh
+heroku_app_id.txt
+heroku_deploy.rb
