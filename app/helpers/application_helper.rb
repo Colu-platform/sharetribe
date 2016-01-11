@@ -846,10 +846,10 @@ module ApplicationHelper
   end
 
   def community_slogan
-    if @community_customization  && !@community_customization.slogan.blank?
+    if @community_customization
       @community_customization.slogan
     else
-      if @current_community.slogan && !@current_community.slogan.blank?
+      if @current_community.slogan
         @current_community.slogan
       else
         t("common.default_community_slogan")
@@ -858,9 +858,9 @@ module ApplicationHelper
   end
 
   def community_description(truncate=true)
-    if @community_customization && !@community_customization.description.blank?
+    if @community_customization
       truncate ? truncate_html(@community_customization.description, length: 140, omission: "...") : @community_customization.description
-    elsif @current_community.description && !@current_community.description.blank?
+    elsif @current_community.description
       truncate ? truncate_html(@current_community.description, length: 140, omission: "...") : @current_community.description
     else
       truncate ? truncate_html(t("common.default_community_description"), length: 125, omission: "...") : t("common.default_community_description")
